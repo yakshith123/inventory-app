@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard | InventoryPro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary-color: #e74c3c;
+      --secondary-color: #2c3e50;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #34495e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background-color: var(--secondary-color);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1rem;
+      position: fixed;
+      height: 100%;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar .logo {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar li {
+      margin: 1.2rem 0;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.2s;
+    }
+
+    .sidebar a.active,
+    .sidebar a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Main content */
+    .main {
+      margin-left: 250px;
+      padding: 2rem;
+      width: 100%;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .welcome-message {
+      background-color: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .welcome-message i {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+    }
+
+    .stats-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background-color: var(--card-bg);
+      padding: 1.2rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .stat-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+      color: var(--text-color);
+    }
+
+    .stat-card p {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    h2 {
+      margin: 2rem 0 1rem;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Table */
+    .inventory-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .inventory-table th,
+    .inventory-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    .inventory-table th {
+      background-color: #f1f3f5;
+      font-weight: 600;
+    }
+
+    .inventory-table tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .item-image {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: absolute;
+        left: -250px;
+        z-index: 10;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 1rem;
+      }
+
+      .hamburger {
+        display: block;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+      }
+    }
+
+    .hamburger {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar">
+    <div class="logo"><i class="fas fa-layer-group"></i> StockSync</div>
+    <ul>
+      <li><a href="/user_dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+      <li><a href="/user_inventory"><i class="fas fa-box-open"></i> Inventory</a></li>
+      <li><a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Dashboard -->
+  <div class="main">
+    <div class="hamburger" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
+
+    <div class="page-header">
+      <h1><i class="fas fa-tachometer-alt"></i> User Dashboard</h1>
+      <div>Today: <strong>{{formatted_date}}</strong></div>
+    </div>
+
+    <div class="welcome-message">
+      <i class="fas fa-user-circle"></i>
+      <div>
+        <h2>Welcome back, {{email}}</h2>
+      </div>
+    </div>
+
+    <div class="stats-cards">
+      <div class="stat-card">
+        <h3>My Total Orders</h3>
+        <p>{{total_orders}}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Items</h3>
+        <p>{{total_items}}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Users</h3>
+        <p>{{total_users}}</p>
+      </div>
+    </div>
+
+    <h2><i class="fas fa-tasks"></i> My Orders</h2>
+    <table class="inventory-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Location</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in result %}
+        <tr>
+          <td style="text-align: center;">
+            <img src="data:image/jpg;base64,{{row[-2]}}" class="item-image"/><br/>
+            {{row[1]}}
+          </td>
+          <td>{{row[2]}}</td>
+          <td>1</td>
+          <td>{{row[4]}}</td>
+          <td>{{row[6]}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

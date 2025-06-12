@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | InventoryPro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #7f5af0;         /* Soft violet */
+            --secondary-color: #16161a;       /* Almost black */
+            --accent-color: #ff8906;          /* Sunset orange */
+            --light-color: #f5f7fa;           /* Ultra-light gray */
+            --dark-color: #1f1f23;            /* Deep dark */
+            --sidebar-width: 240px;
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --blur-effect: blur(16px);
+            --border-radius: 16px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Space Grotesk', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--light-color);
+            font-size: 16px;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+        }
+        
+        /* Vertical Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--secondary-color);
+            height: 100vh;
+            position: fixed;
+            padding: 2rem 1rem;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 2.5rem;
+            padding: 0 0.5rem;
+        }
+        
+        .logo i {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+        
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex-grow: 1;
+        }
+        
+        .nav-links li a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--light-color);
+            text-decoration: none;
+            padding: 0.9rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-links li a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .nav-links li a.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(127, 90, 240, 0.3);
+        }
+        
+        .nav-links li a i {
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        /* Login Card */
+        .login-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--blur-effect);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            max-width: 460px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        .login-icon {
+            background-color: var(--accent-color);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.8rem;
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(255, 137, 6, 0.3);
+        }
+        
+        .login-card h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.4rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .login-card p {
+            color: #d0d0d0;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.8rem;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--light-color);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(127, 90, 240, 0.3);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ccc;
+            cursor: pointer;
+        }
+        
+        /* Remember/Forgot */
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .remember-me input {
+            margin-right: 10px;
+        }
+        
+        .forgot-password a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        .login-btn {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            background-color: #6d4af0;
+            box-shadow: 0 10px 20px rgba(127, 90, 240, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        .login-footer {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .login-footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 220px;
+            }
+            
+            .main-content {
+                margin-left: 220px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+                padding: 1.5rem 0;
+            }
+            
+            .logo span, .nav-links li a span {
+                display: none;
+            }
+            
+            .logo {
+                justify-content: center;
+                padding: 0;
+            }
+            
+            .nav-links li a {
+                justify-content: center;
+                padding: 0.9rem 0;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+                padding: 1.5rem;
+            }
+            
+            .login-card {
+                padding: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .login-card {
+                padding: 1.5rem;
+            }
+            
+            .login-icon {
+                width: 75px;
+                height: 75px;
+                font-size: 2rem;
+            }
+            
+            .login-card h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Vertical Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="logo">
+            <i class="fas fa-layer-group"></i>
+            <span>StockSync</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/"><i class="fas fa-home"></i> <span>Home</span></a></li>
+            <li><a href="/user_login"><i class="fas fa-user-tie"></i> <span>User</span></a></li>
+            <li><a href="/admin_login" class="active"><i class="fas fa-user-shield"></i> <span>Admin</span></a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            <li><a href="#"><i class="fas fa-question-circle"></i> <span>Help</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="login-card">
+            <div class="login-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h2>Admin Login</h2>
+            <p>Access the admin dashboard with your credentials</p>
+            
+            <form action="/admin_login" method="post">
+                <div class="form-group">
+                    <label for="admin-email">Admin ID</label>
+                    <input type="text" id="admin-email" name="email" placeholder="Enter your admin ID" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="admin-password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="admin-password" name="password" placeholder="Enter your password" required>
+                        <i class="fas fa-eye password-toggle" id="toggleAdminPassword"></i>
+                    </div>
+                </div>
+                
+                <div class="remember-forgot">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                </div>
+                
+                <button type="submit" class="login-btn">Login</button>
+                
+                <div class="login-footer">
+                    <p>Not an admin? <a href="/user_login">User login here</a></p>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Password Toggle
+        const toggleAdminPassword = document.querySelector('#toggleAdminPassword');
+        const adminPassword = document.querySelector('#admin-password');
+        
+        toggleAdminPassword.addEventListener('click', () => {
+            const type = adminPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            adminPassword.setAttribute('type', type);
+            toggleAdminPassword.classList.toggle('fa-eye-slash');
+        });
+    </script>
+</body>
+</html>
