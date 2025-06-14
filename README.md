@@ -3,8 +3,10 @@
 This is a Flask-based inventory management system designed to help businesses manage their inventory efficiently. The system includes user and admin dashboards, item tracking, purchase management, and PDF bill generation.
 
 ## Deployment
+Live Demo
 
-The application is deployed on [Vercel](https://vercel.com) using serverless functions.
+You can view the live demo of the application at the following link:
+https://inventory-app-6nkm.onrender.com
 
 ## Features
 
