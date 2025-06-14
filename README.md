@@ -1,6 +1,9 @@
 # 🗃️ Inventory Management Web App
 
-This is a Flask-based inventory management system with user and admin dashboards, item tracking, purchase management, and PDF bill generation using ReportLab. The project supports deployment on [Vercel](https://vercel.com) using serverless functions.
+Inventory Management Web App
+This is a Flask-based inventory management system designed to help businesses manage their inventory efficiently. The system includes user and admin dashboards, item tracking, purchase management, and PDF bill generation.
+
+deployment on [Vercel](https://vercel.com) using serverless functions.
 
 ## 🔧 Features
 
@@ -13,33 +16,27 @@ This is a Flask-based inventory management system with user and admin dashboards
 - 🌐 Hosted on Vercel (serverless)
 
 ---
+Requirements
 
-## 🗂️ Project Structure
+Python 3.8 or higher
+Flask 2.0 or higher
+Docker 20.10 or higher
+---
+Installation
+Clone the repository using git clone https://github.com/yakshith123/inventory-app.git
+Create a new virtual environment using python -m venv venv
+Activate the virtual environment using source venv/bin/activate
+Install the required dependencies using pip install -r requirements.txt
+Run the application using flask run
 
-inventory-app/
-├── api/
-│ └── index.py # Main Flask application
-├── templates/ # HTML templates (Jinja2)
-│ ├── index.html
-│ ├── user_login.html
-│ └── ...
-├── static/ # Static files (CSS, JS, images, generated PDFs)
-│ └── bill.pdf
-├── inventory.db # SQLite3 database
-├── requirements.txt # Python dependencies
-├── vercel.json # Vercel configuration
-└── README.md
+--
+Dockerization
+Build the Docker image using docker build -t inventory-app .
+Run the Docker container using docker run -p 5000:5000 inventory-app
 
-git clone https://github.com/yourusername/inventory-app.git
-cd inventory-app
-pip install -r requirements.txt
-python api/index.py
+API Documentation
+The API documentation is available at /api/docs
 
-Email: admin@gmail.com
-Password: admin123
-
-
-📃 License
-MIT License — feel free to use and modify this project.
-
-Built with ❤️ by Yakshith S Y
+-
+License
+This project is licensed under the MIT License.
