@@ -43,8 +43,3 @@ Password: admin123
 MIT License — feel free to use and modify this project.
 
 Built with ❤️ by Yakshith S Y
-
-
----
-
-Let me know if you'd like a version with screenshots, badges, or GIF previews!
