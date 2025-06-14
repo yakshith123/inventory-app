@@ -55,6 +55,16 @@ docker run -p 5000:5000 inventory-app
 
 ## API Documentation
 The API documentation is available at /api/docs.
+Test Instructions
+## Run Tests:
+
+Ensure your virtual environment is activated.
+Run the following command to execute tests:
+pytest
+## Test Coverage:
+
+To check test coverage, you can use:
+pytest --cov=your_module_name
 
 ## License
 This project is licensed under the MIT License.
